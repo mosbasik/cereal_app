@@ -21,16 +21,23 @@ class CerealAdmin(admin.ModelAdmin):
                     'rating',)
 
 
+class CerealInline(admin.TabularInline):
+    model = Cereal
+
+
 class ManufacturerAdmin(admin.ModelAdmin):
     list_display = ('name', 'abbreviation', )
+    inlines = [CerealInline]
 
 
 class KindAdmin(admin.ModelAdmin):
     list_display = ('name', 'abbreviation', )
+    inlines = [CerealInline]
 
 
 class ShelfAdmin(admin.ModelAdmin):
     list_display = ('number', )
+    inlines = [CerealInline]
 
 
 admin.site.register(Cereal, CerealAdmin)
