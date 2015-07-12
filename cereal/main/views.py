@@ -8,17 +8,15 @@ def manufacturers(request):
     response = ['<h1>Cereal Manufacturers</h1><br>']
     manufacturers = Manufacturer.objects.all()
     for manufacturer in manufacturers:
-        response.append('<a href="%s">%s</a><br>' % (manufacturer.name,
+        response.append('<a href="%s">%s</a><br>' % (manufacturer.id,
                                                      manufacturer.name))
     return HttpResponse(response)
 
 
-def details(request, istartswith=None):
+def mfr_details(request, mfr_id=None):
     response = ['<h1>Cereal Manufacturers</h1><br>']
-    manufacturers = Manufacturer.objects.filter(
-        name__istartswith=istartswith)
-    for manufacturer in manufacturers:
-        response.append('<h2>%s</h2><br>' % manufacturer.name)
-        for cereal in manufacturer.cereal_set.all():
-            response.append('- %s<br>' % cereal.name)
+    manufacturer = Manufacturer.objects.get(id=mfr_id)
+    response.append('<h2>%s</h2><br>' % manufacturer.name)
+    for cereal in manufacturer.cereal_set.all():
+        response.append('- %s<br>' % cereal.name)
     return HttpResponse(response)
