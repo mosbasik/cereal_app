@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^home/$', 'main.views.home'),
     url(r'^manufacturers/$', 'main.views.manufacturers'),
     url(r'^manufacturers/(?P<mfr_id>\w+)/$', 'main.views.mfr_details'),
 )
