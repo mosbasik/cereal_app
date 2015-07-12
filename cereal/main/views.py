@@ -8,7 +8,8 @@ def manufacturers(request):
     response = ['<h1>Cereal Manufacturers</h1><br>']
     manufacturers = Manufacturer.objects.all()
     for manufacturer in manufacturers:
-        response.append('%s<br>' % manufacturer.name)
+        response.append('<a href="%s">%s</a><br>' % (manufacturer.name,
+                                                     manufacturer.name))
     return HttpResponse(response)
 
 
