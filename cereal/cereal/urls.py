@@ -12,4 +12,6 @@ urlpatterns = patterns('',
     url(r'^home/$', 'main.views.home'),
     url(r'^manufacturers/$', 'main.views.manufacturers'),
     url(r'^manufacturers/(?P<mfr_id>\w+)/$', 'main.views.mfr_details'),
+    url(r'^cereals/$', 'main.views.cereals'),
+    url(r'^cereals/(?P<cereal_id>\w+)/$', 'main.views.cereal_details'),
 )

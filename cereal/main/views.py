@@ -1,13 +1,14 @@
-from main.models import Manufacturer
+from main.models import Manufacturer, Cereal
 
 from django.shortcuts import render
 from django.http import HttpResponse
 
 
 def home(request):
-    response = []
+    response = list()
     response.append('<h1><a href="/home">Home<a></h1><br>')
     response.append('<a href="/manufacturers">Manufacturers<a><br>')
+    response.append('<a href="/cereals">Cereals<a><br>')
     return HttpResponse(response)
 
 
@@ -30,5 +31,50 @@ def mfr_details(request, mfr_id=None):
     response.append('<h1><a href="/manufacturers/%s">%s</a></h1><br>' %
                     (manufacturer.id, manufacturer.name))
     for cereal in manufacturer.cereal_set.all():
-        response.append('- %s<br>' % cereal.name)
+        response.append('- <a href="/cereals/%s">%s<a><br>' % (cereal.id,
+                                                               cereal.name))
+    return HttpResponse(response)
+
+
+def cereals(request):
+    response = list()
+    response.append('<h2><a href="/home">Home<a></h2><br>')
+    response.append('<h1><a href="/cereals">Cereals</a></h1><br>')
+    cereals = Cereal.objects.all()
+    for cereal in cereals:
+        response.append('<a href="%s">%s</a><br>' % (cereal.id,
+                                                     cereal.name))
+    return HttpResponse(response)
+
+
+def cereal_details(request, cereal_id=None):
+    response = list()
+    response.append('<h2><a href="/home">Home<a></h2><br>')
+    response.append('<h2><a href="/cereals">Cereals</a></h2><br>')
+    cereal = Cereal.objects.get(id=cereal_id)
+    response.append('<h1><a href="/cereals/%s">%s</a></h1><br>' % (cereal.id,
+                                                                   cereal.name))
+
+    # Meta data display block:
+    response.append('<h3>Metadata:</h3><br>')
+    response.append('<a href="/manufacturers/%s">%s</a><br>' %
+                    (cereal.manufacturer.id, cereal.manufacturer))
+    response.append('%s cereals<br>' % cereal.kind)
+    response.append('Shelf %s<br>' % cereal.shelf)
+    response.append('Rating: %s<br>' % cereal.rating)
+
+    # Nutrition data display block:
+    response.append('<h3>Nutrition Data (per serving):</h3><br>')
+    response.append('%s cups<br>' % cereal.cup)
+    response.append('%sg<br>' % cereal.weight)
+    response.append('%s calories<br>' % cereal.calorie)
+    response.append('%sg carbs<br>' % cereal.carb)
+    response.append('%sg fat<br>' % cereal.fat)
+    response.append('%sg fiber<br>' % cereal.fiber)
+    response.append('%smg potassium<br>' % cereal.potassium)
+    response.append('%sg protein<br>' % cereal.protein)
+    response.append('%smg sodium<br>' % cereal.sodium)
+    response.append('%sg sugar<br>' % cereal.sugar)
+    response.append('%smg vitamins<br>' % cereal.vitamin)
+
     return HttpResponse(response)
