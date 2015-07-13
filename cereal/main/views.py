@@ -21,16 +21,11 @@ def manufacturers(request):
 
 
 def mfr_details(request, mfr_id=None):
-    response = list()
-    response.append('<h2><a href="/home">Home<a></h2><br>')
-    response.append('<h2><a href="/manufacturers">Manufacturers<a></h2><br>')
+    context = {}
     manufacturer = Manufacturer.objects.get(id=mfr_id)
-    response.append('<h1><a href="/manufacturers/%s">%s</a></h1><br>' %
-                    (manufacturer.id, manufacturer.name))
-    for cereal in manufacturer.cereal_set.all():
-        response.append('- <a href="/cereals/%s">%s<a><br>' % (cereal.id,
-                                                               cereal.name))
-    return HttpResponse(response)
+    context['manufacturer'] = manufacturer
+    context['cereals'] = manufacturer.cereal_set.all()
+    return render(request, 'mfr_details.html', context)
 
 
 def cereals(request):
