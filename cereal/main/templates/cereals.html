@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cereals</title>
+    </head>
+
+    <body>
+        <h2><a href="/home">Home<a></h2><br>
+        <h1><a href="/cereals">Cereals<a></h1><br>
+        <ul>
+            {% for cereal in cereals %}
+                <li><a href="{{ cereal.id }}">{{ cereal.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

@@ -24,49 +24,15 @@ def mfr_details(request, mfr_id=None):
 
 
 def cereals(request):
-    response = list()
-    response.append('<h2><a href="/home">Home<a></h2><br>')
-    response.append('<h1><a href="/cereals">Cereals</a></h1><br>')
-    cereals = Cereal.objects.all()
-    for cereal in cereals:
-        response.append('<a href="%s">%s</a><br>' % (cereal.id,
-                                                     cereal.name))
-    return HttpResponse(response)
+    context = {}
+    context['cereals'] = Cereal.objects.all()
+    return render(request, 'cereals.html', context)
 
 
 def cereal_details(request, cereal_id=None):
-    response = list()
-    response.append('<h2><a href="/home">Home<a></h2><br>')
-    response.append('<h2><a href="/cereals">Cereals</a></h2><br>')
-    cereal = Cereal.objects.get(id=cereal_id)
-    response.append('<h1><a href="/cereals/%s">%s</a></h1><br>' %
-                    (cereal.id, cereal.name))
-
-    # Meta data display block:
-    response.append('<h3>Metadata:</h3><br>')
-    response.append('<a href="/manufacturers/%s">%s</a><br>' %
-                    (cereal.manufacturer.id, cereal.manufacturer))
-    response.append('<a href="/kinds/%s">%s Cereals</a><br>' %
-                    (cereal.kind.id, cereal.kind))
-    response.append('<a href="/shelves/%s">Shelf %s</a><br>' %
-                    (cereal.shelf.id, cereal.shelf))
-    response.append('Rating: %s<br>' % cereal.rating)
-
-    # Nutrition data display block:
-    response.append('<h3>Nutrition Data (per serving):</h3><br>')
-    response.append('%s cups<br>' % cereal.cup)
-    response.append('%sg<br>' % cereal.weight)
-    response.append('%s calories<br>' % cereal.calorie)
-    response.append('%sg carbs<br>' % cereal.carb)
-    response.append('%sg fat<br>' % cereal.fat)
-    response.append('%sg fiber<br>' % cereal.fiber)
-    response.append('%smg potassium<br>' % cereal.potassium)
-    response.append('%sg protein<br>' % cereal.protein)
-    response.append('%smg sodium<br>' % cereal.sodium)
-    response.append('%sg sugar<br>' % cereal.sugar)
-    response.append('%smg vitamins<br>' % cereal.vitamin)
-
-    return HttpResponse(response)
+    context = {}
+    context['cereal'] = Cereal.objects.get(id=cereal_id)
+    return render(request, 'cereal_details.html', context)
 
 
 def kinds(request):

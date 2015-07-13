@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cereal Details</title>
+    </head>
+
+    <body>
+        <h2><a href="/home">Home<a></h2><br>
+        <h2><a href="/cereals">Cereals<a></h2><br>
+        <h1><a href="/cereals/{{ cereal.id }}">{{ cereal.name }}</a></h1><br>
+
+        <h3>Metadata:</h3>
+
+        <ul>
+            <li><a href="/manufacturers/{{ cereal.manufacturer.id }}">{{ cereal.manufacturer.name }}</a></li>
+            <li><a href="/kinds/{{ cereal.kind.id }}">{{ cereal.kind }} Cereals</a></li>
+            <li><a href="/shelves/{{ cereal.shelf.id }}">Shelf {{ cereal.shelf.name }}</a></li>
+            <li>Rating: {{ cereal.rating }}</li>
+        </ul>
+
+        <h3>Nutrition Data:</h3>
+
+        <ul>
+            <li>{{ cereal.cup }} cups</li>
+            <li>{{ cereal.weight }}g</li>
+            <li>{{ cereal.calorie }} calories</li>
+            <li>{{ cereal.carb }}g carbs</li>
+            <li>{{ cereal.fat }}g fat</li>
+            <li>{{ cereal.fiber }}g fiber</li>
+            <li>{{ cereal.potassium }}mg potassium</li>
+            <li>{{ cereal.protein }}g protein</li>
+            <li>{{ cereal.sodium }}mg sodium</li>
+            <li>{{ cereal.sugar }}g sugar</li>
+            <li>{{ cereal.vitamin }}mg vitamins</li>
+        </ul>
+    </body>
+</html>
