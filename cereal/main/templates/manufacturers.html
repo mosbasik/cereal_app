@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manufacturers</title>
+    </head>
+
+    <body>
+        <h2><a href="/home">Home<a></h2><br>
+        <h1><a href="/manufacturers">Manufacturers<a></h1><br>
+        <ul>
+            {% for manufacturer in manufacturers %}
+                <li><a href="{{ manufacturer.id }}">{{ manufacturer.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

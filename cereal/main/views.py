@@ -15,14 +15,9 @@ def home(request):
 
 
 def manufacturers(request):
-    response = list()
-    response.append('<h2><a href="/home">Home<a></h2><br>')
-    response.append('<h1><a href="/manufacturers">Manufacturers<a></h1><br>')
-    manufacturers = Manufacturer.objects.all()
-    for manufacturer in manufacturers:
-        response.append('<a href="%s">%s</a><br>' % (manufacturer.id,
-                                                     manufacturer.name))
-    return HttpResponse(response)
+    context = {}
+    context['manufacturers'] = Manufacturer.objects.all()
+    return render(request, 'manufacturers.html', context)
 
 
 def mfr_details(request, mfr_id=None):
@@ -130,3 +125,5 @@ def shelf_details(request, shelf_id=None):
         response.append('- <a href="/cereals/%s">%s<a><br>' % (cereal.id,
                                                                cereal.name))
     return HttpResponse(response)
+
+
