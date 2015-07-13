@@ -16,4 +16,6 @@ urlpatterns = patterns('',
     url(r'^cereals/(?P<cereal_id>\w+)/$', 'main.views.cereal_details'),
     url(r'^kinds/$', 'main.views.kinds'),
     url(r'^kinds/(?P<kind_id>\w+)/$', 'main.views.kind_details'),
+    url(r'^shelves/$', 'main.views.shelves'),
+    url(r'^shelves/(?P<shelf_id>\w+)/$', 'main.views.shelf_details'),
 )

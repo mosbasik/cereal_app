@@ -1,4 +1,4 @@
-from main.models import Manufacturer, Cereal, Kind
+from main.models import Manufacturer, Cereal, Kind, Shelf
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -10,6 +10,7 @@ def home(request):
     response.append('<a href="/manufacturers">Manufacturers<a><br>')
     response.append('<a href="/cereals">Cereals<a><br>')
     response.append('<a href="/kinds">Kinds<a><br>')
+    response.append('<a href="/shelves">Shelves<a><br>')
     return HttpResponse(response)
 
 
@@ -60,9 +61,10 @@ def cereal_details(request, cereal_id=None):
     response.append('<h3>Metadata:</h3><br>')
     response.append('<a href="/manufacturers/%s">%s</a><br>' %
                     (cereal.manufacturer.id, cereal.manufacturer))
-    response.append('<a href="/kinds/%s">%s Cereals</a><br>' % (cereal.kind.id,
-                                                                cereal.kind))
-    response.append('Shelf %s<br>' % cereal.shelf)
+    response.append('<a href="/kinds/%s">%s Cereals</a><br>' %
+                    (cereal.kind.id, cereal.kind))
+    response.append('<a href="/shelves/%s">Shelf %s</a><br>' %
+                    (cereal.shelf.id, cereal.shelf))
     response.append('Rating: %s<br>' % cereal.rating)
 
     # Nutrition data display block:
@@ -101,6 +103,30 @@ def kind_details(request, kind_id=None):
     response.append('<h1><a href="/kinds/%s">%s Cereals</a></h1><br>' %
                     (kind.id, kind.name))
     for cereal in kind.cereal_set.all():
+        response.append('- <a href="/cereals/%s">%s<a><br>' % (cereal.id,
+                                                               cereal.name))
+    return HttpResponse(response)
+
+
+def shelves(request):
+    response = list()
+    response.append('<h2><a href="/home">Home<a></h2><br>')
+    response.append('<h1><a href="/shelves">Shelves</a></h1><br>')
+    shelves = Shelf.objects.all().order_by('number')
+    for shelf in shelves:
+        response.append('<a href="%s">Shelf %s</a><br>' % (shelf.id,
+                                                           str(shelf.number)))
+    return HttpResponse(response)
+
+
+def shelf_details(request, shelf_id=None):
+    response = list()
+    response.append('<h2><a href="/home">Home<a></h2><br>')
+    response.append('<h2><a href="/shelves">Shelves</a></h2><br>')
+    shelf = Shelf.objects.get(id=shelf_id)
+    response.append('<h1><a href="/shelves/%s">Shelf %s</a></h1><br>' %
+                    (shelf.id, str(shelf.number)))
+    for cereal in shelf.cereal_set.all():
         response.append('- <a href="/cereals/%s">%s<a><br>' % (cereal.id,
                                                                cereal.name))
     return HttpResponse(response)
