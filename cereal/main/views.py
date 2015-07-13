@@ -5,13 +5,8 @@ from django.http import HttpResponse
 
 
 def home(request):
-    response = list()
-    response.append('<h1><a href="/home">Home<a></h1><br>')
-    response.append('<a href="/manufacturers">Manufacturers<a><br>')
-    response.append('<a href="/cereals">Cereals<a><br>')
-    response.append('<a href="/kinds">Kinds<a><br>')
-    response.append('<a href="/shelves">Shelves<a><br>')
-    return HttpResponse(response)
+    context = {}
+    return render(request, 'home.html', context)
 
 
 def manufacturers(request):
